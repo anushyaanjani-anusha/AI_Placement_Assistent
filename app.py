@@ -23,8 +23,8 @@ else:
   questions = st.text_area('Enter Interview Questions here')
   answer = st.text_area('Enter your answer', height =160)
 if st.button("Generate AI Response", type = "primary"):
-  if mode in ['Evaluate Answers', 'Improve Answers'] and (not question.strip() or not answer.strip()):
-    st.warning("Please enter a valid Question and Answer")
+  if mode in ['Evaluate Answers', 'Improve Answers'] and (not questions.strip() or not answer.strip()):
+    st.warning("Please enter a valid Questions and Answer")
     st.stop()
   if mode == "Generate  Questions":
     task = "Generate" + str(count)+"Frequently asked Interview Questions 3 theory and 2 Scenario questions.Do not give answer.give hint"
