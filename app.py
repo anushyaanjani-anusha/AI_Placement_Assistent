@@ -20,15 +20,15 @@ elif mode == 'Generate Code Questions':
   topic = st.selectbox('Topics', ['SQL', 'AIML', 'Python', 'DSA', 'Java', 'c/c++'])
   count = st.slider("Number of Questions",1,10,5)
 else:
-  questions = st.text_area('Enter Interview Questions here')
+  question = st.text_area('Enter Interview Questions here')
   answer = st.text_area('Enter your answer', height =160)
 if st.button("Generate AI Response", type = "primary"):
-  if mode in ['Evaluate Answers', 'Improve Answers'] and (not questions.strip() or not answer.strip()):
-    st.warning("Please enter a valid Questions and Answer")
+  if mode in ['Evaluate Answers', 'Improve Answers'] and (not question.strip() or not answer.strip()):
+    st.warning("Please enter a valid Question and Answer")
     st.stop()
   if mode == "Generate  Questions":
-    task = "Generate" + str(count)+"Frequently asked Interview Questions 3 theory and 2 Scenario questions.Do not give answer.give hint"
-  elif mode == "Generate Code Questions":
+    task = "Generate" + str(count)+"Frequently asked Interview Questions 3 theory and 2 Scenario question.Do not give answer.give hint"
+  elif mode == "Generate Code Question":
     task = "Generate" + str(count)+"Frequently asked coding question on topic"+"and give nints to solve them.Be accurate."
   elif mode == "Evaluate Answer":
     task = "Question:" + "My Answer:"+answer+"Evaluate this answer based on concept,relevance,communication,length of answer.Give each rating out of File in a list"
