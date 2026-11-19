@@ -36,7 +36,7 @@ if st.button("Generate AI Response", type = "primary"):
   elif mode =="Improve Answer":
     task = "Question:"+question+"My answer:"+answer+"Improve the answer based on choices of words"
   background = "Job role:"+role+"Difficulty level" + level
-  with st.spinner("Generatating your answer...")
+  with st.spinner("Generatating your answer..."):
     try:
       response = client.chat.completions.create(
         model = gen_mode,
@@ -46,11 +46,12 @@ if st.button("Generate AI Response", type = "primary"):
                      "content":background + task}],
         temperature = 0.7,
         max_tokens = 1800
-        output = response.choices[0].message.content
+      )
+      output = response.choices[0].message.content
       st.subheader("AI Response")
       st.markdown(output)
       st.download_button("Download Response",output,file_name="Interview_Response.txt",mime = 'text/plain')
-      )
+      
    except Exception as e:
      st.error("API connection was unsucessaful:",e)
      st.info("Please check your API key and rate limits")
