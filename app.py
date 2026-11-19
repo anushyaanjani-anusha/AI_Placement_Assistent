@@ -2,7 +2,7 @@ import streamlit as st
 from groq import Groq
 st.set_page_config(page_title = 'AI assistant interview', layout='centered')
 st.title("AI Interview Assistant")
-st.caption("Launched by ANUSHA")
+st.caption("Launched by Anusha")
 try:
   client = Groq(api_key = st.secrets["GROQ_API_KEY"])
 except (KeyError, FileNotFound):
@@ -26,36 +26,31 @@ if st.button("Generate AI Response", type = "primary"):
   if mode in ['Evaluate Answers', 'Improve Answers'] and (not question.strip() or not answer.strip()):
     st.warning("Please enter a valid Question and Answer")
     st.stop()
-  if mode == "Generate  Questions":
-    task = "Generate" + str(count)+"Frequently asked Interview Questions 3 theory and 2 Scenario question.Do not give answer.give hint"
-  elif mode == "Generate Code Question":
-    task = "Generate" + str(count)+"Frequently asked coding question on topic"+"and give nints to solve them.Be accurate."
-  elif mode == "Evaluate Answer":
-    task = "Question:" + "My Answer:"+answer+"Evaluate this answer based on concept,relevance,communication,length of answer.Give each rating out of File in a list"
-  elif mode =="Improve Answer":
-    task = "Question:"+question+"My answer:"+answer+"Improve the answer based on choices of words"
-  background = "Job role:"+role+"Difficulty level" + level
-  with st.spinner("Generatating your answer..."):
+  if mode =="Generate Questions" :
+    task = "Generate" + str(count) + " Frequently asked Interview Questions 3 theory and 2 senario questions . do not give answer . give hint"
+  elif mode =="Generate Code Questions":
+    task = "Generate" + str(count) + " Frequently asked coding questions on topic" + topic + "and give hints to solve them. Be accurate."
+  elif mode == "Evaluate Answers":
+    tsak = "Question :" +question+"My Answer: " +answer +"Evaluate this answer based on concept,relavance,communication,lenght of answer. Give each rating out of Five in a list."
+  elif mode == "Improve Answers":
+    task= "Question:" +question + "My answer :" + answer +" Improve the answer based on choice of words."
+  background = "Job role :" + role + "Difficulty level" +  level
+  with st.spinner(" Generating your answer..."):
     try:
-      response = client.chat.completions.create(
-        model = gen_model,
-        messages = [{"role":"system",
-                     "content":"Act as senior interviewer,both HR and Technical export"},
-                    {"role":"user",
-                     "content":background + task}],
+      response= client.chat.completions.create(
+        model =gen_model,
+        messages = [{"role" :"system",
+                     "content": "Act as a Senior Interviewer both HR and Technical expert"},
+                    {"role": "user",
+                    "content": background +task}],
         temperature = 0.7,
         max_tokens = 1800
       )
       output = response.choices[0].message.content
-      st.subheader("AI Response")
+      st. subheader("AI Response")
       st.markdown(output)
-      st.download_button("Download Response",output,file_name="Interview_Response.txt",mime = 'text/plain')
+      st.download_button("Download Response", output,file_name =" Interview_Response.txt", mime='text/plain')
     except Exception as e:
-      st.error("API connection was unsucessaful:")
-      st.info("Please check your API key and rate limits")
-st.caption("Powered by Streamlit.io and GitHub.Using LLM API")
-     
-  
-
-
-   
+      st.error("API connection was unsuccessful")
+      st.info ("Please check your API Key and rate limits")
+st.caption("Powered by Steamlit.io and GitHub. Using LLM API")
